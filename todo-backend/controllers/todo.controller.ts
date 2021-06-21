@@ -62,7 +62,7 @@ class TodoController {
    * @returns updated todo
    */
   updateActiveState = async (
-    id: String,
+    id: string,
     activeState: string
   ): Promise<TodoInterface | any> => {
     try {

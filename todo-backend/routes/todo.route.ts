@@ -20,7 +20,7 @@ router.get("/", async function (req: Request, res: Response) {
 
   if (todos) {
     // res.send(todo);
-    res.status(200).send({ success: todos });
+    res.status(200).send(todos);
   } else {
     res.status(500).send({ error: `fetching all todos failed`, data: [] });
   }
@@ -36,7 +36,7 @@ router.get("/", async function (req: Request, res: Response) {
 
   if (todos) {
     // res.send(todo);
-    res.status(200).send({ success: todos });
+    res.status(200).send(todos);
   } else {
     res.status(500).send({ error: `fetching sorted todos failed`, data: [] });
   }
@@ -51,7 +51,7 @@ router.post("/", async function (req: Request, res: Response) {
   console.log("creating this record", data);
   if (todo) {
     // res.send(todo);
-    res.status(200).send({ data: todo });
+    res.status(200).send(todo);
   } else {
     res
       .status(500)
@@ -69,7 +69,7 @@ router.patch("/:id/:state", async function (req: Request, res: Response) {
   console.log("creating this record", id, state);
   if (todo) {
     // res.send(todo);
-    res.status(200).send({ data: todo });
+    res.status(200).send(todo);
   } else {
     res.status(404).send({ error: `Todo not found for id : ${id}` });
   }
@@ -83,7 +83,7 @@ router.patch("/:id/:state", async function (req: Request, res: Response) {
     const todo = await TodoController.deleteTodo(id);
     console.log("deleting this record", id);
     if (todo) {
-      res.status(200).send({ data: todo });
+      res.status(200).send(todo);
     } else {
       res.status(500).send({ error: `Todo cannot be deleted for Id : ${id}` });
     }
