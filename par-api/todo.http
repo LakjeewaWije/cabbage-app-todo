@@ -1,0 +1,13 @@
+@hostname = localhost
+@port = 8000
+@host = {{hostname}}:{{port}}
+
+
+POST http://{{host}}/api/todo/
+content-type: application/json
+
+{
+    "title": "create api",
+    "state": "todo",
+    "endDate": 0
+}
