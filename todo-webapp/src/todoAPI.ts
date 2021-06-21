@@ -24,3 +24,11 @@ export const createATodo = async (): Promise<TodoInterface> => {
   const data = res.json();
   return data;
 };
+
+export const updateTodoState = async (arg:TodoInterface): Promise<TodoInterface> => {
+  const res = await fetch(URL+`/${arg._id}/${arg.state}`, {
+    method: "PATCH"
+  });
+  const data = res.json();
+  return data;
+};

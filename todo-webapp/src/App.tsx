@@ -8,6 +8,7 @@ import {
   selectTodos,
   fetchAllTodos,
   createTodo,
+  updateTodo,
 } from "./counterSlice";
 import TodoInterface from "./interfaces/todo.interface";
 function App() {
@@ -30,7 +31,7 @@ function App() {
               <span>{todo.title}</span> &nbsp;
               <span>{todo.state}</span> &nbsp;
               <span>{todo.endDate}</span> &nbsp;
-              <button onClick={() => dispatch(createTodo())} >{todo.state === "todo" ? `mark as done`:`mark as todo`}</button>&nbsp;
+              <button onClick={() => dispatch(updateTodo(todo.state === "todo" ? {_id:todo._id,state:"done"}: {_id:todo._id,state:"todo"}))} >{todo.state === "todo" ? `mark as done`:`mark as todo`}</button>&nbsp;
               <button onClick={() => dispatch(createTodo())} >Delete</button>
             </div>
           ))}

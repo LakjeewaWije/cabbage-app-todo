@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 import TodoInterface from './interfaces/todo.interface';
-import { createATodo, getAllTodos } from './todoAPI';
-
+import { createATodo, getAllTodos, updateTodoState } from './todoAPI';
+import { useAppSelector, useAppDispatch } from "./hook";
 // Define a type for the slice state
 interface todoState {
   todos: TodoInterface []
@@ -30,6 +30,17 @@ export const fetchAllTodos = createAsyncThunk(
       return response;
     }
   );
+
+  export const updateTodo = createAsyncThunk(
+    'todo/updateTodo',
+    async (data:any) => {
+      const response = await updateTodoState(data);
+      // The value we return becomes the `fulfilled` action payload
+      return response;
+    }
+  );
+
+
   
 
 export const todoSlice = createSlice({
@@ -62,6 +73,16 @@ export const todoSlice = createSlice({
       .addCase(createTodo.fulfilled, (state, action) => {
         state.todos.push(action.payload);
       });
+
+      builder
+      .addCase(updateTodo.pending, (state) => {
+      })
+      .addCase(updateTodo.fulfilled, (state, action) => {
+        var index = state.todos.map(todo => {
+            return todo._id;
+          }).indexOf(action.payload._id);
+        state.todos[index] = (action.payload);
+      });
   },
 })
 
@@ -70,4 +91,5 @@ export const { increment, decrement, incrementByAmount } = todoSlice.actions
 // Other code such as selectors can use the imported `RootState` type
 export const selectTodos = (state: RootState) => state.todo.todos
 
-export default todoSlice.reducer
+// export default todoSlice.reducer
+export default todoSlice.reducer as Reducer<typeof initialState>
