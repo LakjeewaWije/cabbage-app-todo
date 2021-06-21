@@ -1,6 +1,7 @@
 import TodoInterface from "../interfaces/todo.interface";
 import { TodoDao } from "../model/todo-dao";
 class TodoController {
+    
   /**
    * get all todos
    * @returns todos list
@@ -9,6 +10,32 @@ class TodoController {
     const todos = await TodoDao.find();
     // if (todos.length == 0) throw Error(`No any todos found`);
     return todos;
+  };
+
+  /**
+   * Sort todos by endDate and insertion order
+   * @param type
+   * @returns filtered todos
+   */
+  fliterTodos = async (type: any): Promise<TodoInterface[] | any> => {
+    let todos: TodoInterface[] = [];
+
+    try {
+      if (isNaN(type)) {
+        todos = await TodoDao.find().sort({ endDate: type });
+      } else {
+        if (type === "1") {
+          //   oldest to newest
+          todos = await TodoDao.find().sort({ $natural: 1 });
+        } else {
+          //   most recently inserted document to oldest
+          todos = await TodoDao.find().sort({ $natural: -1 });
+        }
+      }
+      return todos;
+    } catch (err) {
+      return false;
+    }
   };
 
   /**

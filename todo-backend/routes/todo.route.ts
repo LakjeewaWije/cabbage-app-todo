@@ -4,6 +4,7 @@ import express, { Request, Response } from "express";
 var router = express.Router();
 import TodoController from "../controllers/todo.controller";
 import TodoInterface from "../interfaces/todo.interface";
+
 // middleware that is specific to this router
 router.use(function timeLog(req: any, res: any, next: () => void) {
   console.log("Time: ", Date.now());
@@ -22,6 +23,22 @@ router.get("/", async function (req: Request, res: Response) {
     res.status(200).send({ success: todos });
   } else {
     res.status(500).send({ error: `fetching all todos failed`, data: [] });
+  }
+});
+
+/**
+ * Filter todos by endDate and insertion order
+ */
+ router.get("/filter/:type", async function (req: Request, res: Response) {
+  const type = req.params.type;
+  const todos = await TodoController.fliterTodos(type);
+  console.log("Filter Type ",type);
+
+  if (todos) {
+    // res.send(todo);
+    res.status(200).send({ success: todos });
+  } else {
+    res.status(500).send({ error: `fetching sorted todos failed`, data: [] });
   }
 });
 
