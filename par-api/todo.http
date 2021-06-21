@@ -26,5 +26,6 @@ PATCH http://{{host}}/api/todo/60d0df52cc48b0279797728/todo
 DELETE  http://{{host}}/api/todo/60d0df0f5b776c27634db32
 
 
-
+### Filter by endDate and insertion order
+GET   http://{{host}}/api/todo/filter/desc
 
