@@ -3,11 +3,24 @@
 @host = {{hostname}}:{{port}}
 
 
+
+### get all todos
+GET  http://{{host}}/api/todo/
+
+
+### create a todo
 POST http://{{host}}/api/todo/
 content-type: application/json
 
 {
-    "title": "create api",
-    "state": "todo",
+    "title": "create api 1",
+    "state": "inprogress",
     "endDate": 0
 }
+
+
+
+
+
+
+

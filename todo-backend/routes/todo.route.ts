@@ -24,9 +24,9 @@ router.get("/", async function (req: Request, res: Response) {
  */
  router.post("/", async function (req: Request, res: Response) {
      const data : TodoInterface  = req.body;
-    // const todos = await TodoController.getAllTodos();
+    const todo = await TodoController.createTodo(data);
     console.log("creating this record",data);
-    res.send(data);
+    res.send(todo);
   });
 
 module.exports = router;
