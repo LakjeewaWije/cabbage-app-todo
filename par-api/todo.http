@@ -13,10 +13,13 @@ POST http://{{host}}/api/todo/
 content-type: application/json
 
 {
-    "title": "create api 1",
+    "title": "create api 4",
     "state": "inprogress",
     "endDate": 0
 }
+
+### Update todo state
+PATCH http://{{host}}/api/todo/60d0df52cc48b0279797728/todo
 
 
 
