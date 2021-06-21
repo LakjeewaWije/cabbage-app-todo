@@ -58,4 +58,18 @@ router.patch("/:id/:state", async function (req: Request, res: Response) {
   }
 });
 
+/**
+ * Delete a todo
+ */
+ router.delete("/:id", async function (req: Request, res: Response) {
+    const id = req.params.id;
+    const todo = await TodoController.deleteTodo(id);
+    console.log("deleting this record", id);
+    if (todo) {
+      res.status(200).send({ data: todo });
+    } else {
+      res.status(500).send({ error: `Todo cannot be deleted for Id : ${id}` });
+    }
+  });
+
 module.exports = router;

@@ -13,7 +13,7 @@ POST http://{{host}}/api/todo/
 content-type: application/json
 
 {
-    "title": "create api 4",
+    "title": "create api 911",
     "state": "inprogress",
     "endDate": 0
 }
@@ -22,7 +22,8 @@ content-type: application/json
 PATCH http://{{host}}/api/todo/60d0df52cc48b0279797728/todo
 
 
-
+### delete a todo 
+DELETE  http://{{host}}/api/todo/60d0df0f5b776c27634db32
 
 
 
