@@ -6,6 +6,7 @@ const app = express();
 var cors = require('cors')
 const PORT = 8000;
 
+// initialize mongo db
 DatabaseMongoDB.init();
 
 // parse application/x-www-form-urlencoded
