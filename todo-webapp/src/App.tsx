@@ -13,38 +13,11 @@ import {
   sortTodo,
 } from "./counterSlice";
 import TodoInterface from "./interfaces/todo.interface";
-import { Button } from "@material-ui/core";
-import DeleteIcon from "@material-ui/icons/Delete";
-import LowPriorityIcon from "@material-ui/icons/LowPriority";
-import DoneIcon from "@material-ui/icons/Done";
-import Box from "@material-ui/core/Box";
+import {Done as DoneIcon,LowPriority as LowPriorityIcon,Delete as DeleteIcon} from "@material-ui/icons";
 import { makeStyles, Theme, createStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-// const useStyles = makeStyles({
-//   table: {
-//     minWidth: 650,
-//   },
-//   tableHeader: {
-//     backgroundColor: "#1f2336",
-//   },
-//   tableHeadings: {
-//     color: "#fff",
-//   },
-//   form: {
-//     '& > *': {
-//       margin: spacing(1),
-//       width: '25ch',
-//     },
-//   },
-// });
-
+import AddNewTodo from "./widgets/todo-form";
+import {Button,Box,Table,TableBody,TableCell,TableContainer,TableHead,TableRow,Paper} from "@material-ui/core";
+import moment from 'moment';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     table: {
@@ -69,8 +42,6 @@ function App() {
   const classes = useStyles();
   const todos = useAppSelector(selectTodos);
   const dispatch = useAppDispatch();
-
-  const [sortValue, setSortValue] = useState("");
 
   useEffect(() => {
     dispatch(fetchAllTodos());
@@ -123,12 +94,12 @@ function App() {
               <TableBody>
                 {todos.map((row) => (
                   <TableRow key={row._id}>
-                    <TableCell align="center" component="th" scope="row">
+                    <TableCell style={{fontWeight:'bold'}} align="center" component="th" scope="row">
                       {row.title}
                     </TableCell>
-                    <TableCell align="center">{row.state}</TableCell>
+                    <TableCell align="center">{row.state.toUpperCase()}</TableCell>
                     <TableCell align="center">
-                      {new Date(row.endDate).toString()}
+                      {moment(row.endDate).format("YYYY-MM-DD")}
                     </TableCell>
                     <TableCell align="center">
                       <Button
@@ -171,43 +142,7 @@ function App() {
           </TableContainer>
         </Box>
         <Box>
-          <form className={classes.form} noValidate autoComplete="off">
-            <div>
-              <TextField id="outlined-basic" label="Title" variant="outlined" />
-            </div>
-            <div>
-              <TextField
-                id="outlined-basic"
-                label="Sate:Todo"
-                disabled
-                variant="outlined"
-              />
-            </div>
-            <div>
-              <TextField
-                id="outlined-basic"
-                label="End Date"
-                variant="outlined"
-                defaultValue={"2021-06-19"}
-                type="date"
-              />
-            </div>
-          </form>
-          <Button
-            color="primary"
-            variant="contained"
-            onClick={() =>
-              dispatch(
-                createTodo({
-                  title: "Cabbage-app-api",
-                  state: "todo",
-                  endDate: new Date(),
-                })
-              )
-            }
-          >
-            Add a Todo
-          </Button>
+         <AddNewTodo></AddNewTodo>
         </Box>
       </Box>
     </div>
