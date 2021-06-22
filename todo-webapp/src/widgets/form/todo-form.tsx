@@ -5,10 +5,10 @@ import {
   TextField,
   Theme,
 } from "@material-ui/core";
-import React, { useState } from "react";
-import { createTodo } from "../counterSlice";
-import { useAppDispatch } from "../hook";
-import TodoInterface from "../interfaces/todo.interface";
+import React from "react";
+import { createTodo } from "../../counterSlice";
+import { useAppDispatch } from "../../hook";
+import TodoInterface from "../../interfaces/todo.interface";
 import moment from "moment";
 import { useForm } from "./form";
 const useStyles = makeStyles((theme: Theme) =>
@@ -102,7 +102,7 @@ export default function AddNewTodo() {
           color="primary"
           variant="contained"
         >
-          Add a Todo
+          Create
         </Button>
       </div>
     </form>
