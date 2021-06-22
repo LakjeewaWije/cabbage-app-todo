@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 import TodoInterface from './interfaces/todo.interface';
-import { createATodo, deleteATodo, getAllTodos, updateTodoState } from './todoAPI';
+import { createATodo, deleteATodo, getAllTodos, sortATodo, updateTodoState } from './todoAPI';
 import { useAppSelector, useAppDispatch } from "./hook";
 // Define a type for the slice state
 interface todoState {
@@ -44,6 +44,16 @@ export const fetchAllTodos = createAsyncThunk(
     'todo/deleteTodo',
     async (data:any) => {
       const response = await deleteATodo(data);
+      // The value we return becomes the `fulfilled` action payload
+      return response;
+    }
+  );
+
+
+  export const sortTodo = createAsyncThunk(
+    'todo/sortTodo',
+    async (data:any) => {
+      const response = await sortATodo(data);
       // The value we return becomes the `fulfilled` action payload
       return response;
     }
@@ -101,6 +111,13 @@ export const todoSlice = createSlice({
             return todo._id;
           }).indexOf(action.payload._id);
         state.todos.splice(index, 1);
+      });
+
+      builder
+      .addCase(sortTodo.pending, (state) => {
+      })
+      .addCase(sortTodo.fulfilled, (state, action) => {
+        state.todos = action.payload;
       });
   },
 })

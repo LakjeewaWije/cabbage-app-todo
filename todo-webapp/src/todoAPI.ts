@@ -37,3 +37,9 @@ export const deleteATodo = async (arg:TodoInterface): Promise<TodoInterface> => 
   const data = res.json();
   return data;
 };
+
+export const sortATodo = async (arg:any): Promise<TodoInterface[]>  => {
+  const res = await fetch(URL+`/filter/${arg.type}`);
+  const data = res.json();
+  return data;
+};
