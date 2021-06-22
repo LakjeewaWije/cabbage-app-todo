@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 import TodoInterface from './interfaces/todo.interface';
-import { createATodo, getAllTodos, updateTodoState } from './todoAPI';
+import { createATodo, deleteATodo, getAllTodos, updateTodoState } from './todoAPI';
 import { useAppSelector, useAppDispatch } from "./hook";
 // Define a type for the slice state
 interface todoState {
@@ -24,8 +24,8 @@ export const fetchAllTodos = createAsyncThunk(
 
   export const createTodo = createAsyncThunk(
     'todo/createTodo',
-    async () => {
-      const response = await createATodo();
+    async (data:TodoInterface) => {
+      const response = await createATodo(data);
       // The value we return becomes the `fulfilled` action payload
       return response;
     }
@@ -35,6 +35,15 @@ export const fetchAllTodos = createAsyncThunk(
     'todo/updateTodo',
     async (data:any) => {
       const response = await updateTodoState(data);
+      // The value we return becomes the `fulfilled` action payload
+      return response;
+    }
+  );
+
+  export const deleteTodo = createAsyncThunk(
+    'todo/deleteTodo',
+    async (data:any) => {
+      const response = await deleteATodo(data);
       // The value we return becomes the `fulfilled` action payload
       return response;
     }
@@ -82,6 +91,16 @@ export const todoSlice = createSlice({
             return todo._id;
           }).indexOf(action.payload._id);
         state.todos[index] = (action.payload);
+      });
+
+      builder
+      .addCase(deleteTodo.pending, (state) => {
+      })
+      .addCase(deleteTodo.fulfilled, (state, action) => {
+        var index = state.todos.map(todo => {
+            return todo._id;
+          }).indexOf(action.payload._id);
+        state.todos.splice(index, 1);
       });
   },
 })

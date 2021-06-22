@@ -9,6 +9,7 @@ import {
   fetchAllTodos,
   createTodo,
   updateTodo,
+  deleteTodo,
 } from "./counterSlice";
 import TodoInterface from "./interfaces/todo.interface";
 function App() {
@@ -32,7 +33,7 @@ function App() {
               <span>{todo.state}</span> &nbsp;
               <span>{todo.endDate}</span> &nbsp;
               <button onClick={() => dispatch(updateTodo(todo.state === "todo" ? {_id:todo._id,state:"done"}: {_id:todo._id,state:"todo"}))} >{todo.state === "todo" ? `mark as done`:`mark as todo`}</button>&nbsp;
-              <button onClick={() => dispatch(createTodo())} >Delete</button>
+              <button onClick={() => dispatch(deleteTodo({_id:todo._id}))} >Delete</button>
             </div>
           ))}
         </div>
@@ -40,7 +41,7 @@ function App() {
           Gell all todos
         </button> */}
 
-        <button onClick={() => dispatch(createTodo())}>createTodo</button>
+        <button onClick={() => dispatch(createTodo({title:"Cabbage-app-api",state:"todo",endDate: new Date()}))}>createTodo</button>
       </div>
     </div>
   );
