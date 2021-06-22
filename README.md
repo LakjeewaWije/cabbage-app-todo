@@ -1,3 +1,7 @@
+### `yarn`
+ ./todo-webapp 
+ ./todo-backend
+
 ### `yarn start`
 
 Web app - Runs the app in the development mode.\
