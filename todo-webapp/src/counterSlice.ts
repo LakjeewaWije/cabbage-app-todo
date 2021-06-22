@@ -1,8 +1,7 @@
-import { createAsyncThunk, createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, Reducer } from '@reduxjs/toolkit'
 import type { RootState } from './store'
 import TodoInterface from './interfaces/todo.interface';
-import { createATodo, deleteATodo, getAllTodos, sortATodo, updateTodoState } from './todoAPI';
-import { useAppSelector, useAppDispatch } from "./hook";
+import { createATodo, deleteATodo, getAllTodos, sortATodo, updateTodoState } from './apis/todoAPI';
 // Define a type for the slice state
 interface todoState {
   todos: TodoInterface []
@@ -67,16 +66,6 @@ export const todoSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    increment: state => {
-      state.todos = state.todos
-    },
-    decrement: state => {
-        state.todos = state.todos
-    },
-    // Use the PayloadAction type to declare the contents of `action.payload`
-    incrementByAmount: (state, action: PayloadAction<number>) => {
-        state.todos = state.todos
-    },
   },
   extraReducers: (builder) => {
     builder
@@ -122,7 +111,6 @@ export const todoSlice = createSlice({
   },
 })
 
-export const { increment, decrement, incrementByAmount } = todoSlice.actions
 
 // Other code such as selectors can use the imported `RootState` type
 export const selectTodos = (state: RootState) => state.todo.todos

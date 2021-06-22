@@ -1,5 +1,4 @@
 import { useState } from "react";
-import TodoInterface from "../interfaces/todo.interface";
 
 // useForm functional componen
 export const useForm = (callback: any, initialState : any ) => {
