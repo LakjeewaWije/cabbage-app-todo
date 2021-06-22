@@ -7,7 +7,7 @@ export const getAllTodos = async (): Promise<TodoInterface[]> => {
   return data;
 };
 
-export const createATodo = async (): Promise<TodoInterface> => {
+export const createATodo = async (arg:TodoInterface): Promise<TodoInterface> => {
 
   const res = await fetch(URL, {
     method: "POST",
@@ -15,11 +15,7 @@ export const createATodo = async (): Promise<TodoInterface> => {
       Accept: "application/json",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      "title": "create api 911",
-      "state": "inprogress",
-      "endDate": new Date()
-  }),
+    body: JSON.stringify(arg),
   });
   const data = res.json();
   return data;
@@ -28,6 +24,15 @@ export const createATodo = async (): Promise<TodoInterface> => {
 export const updateTodoState = async (arg:TodoInterface): Promise<TodoInterface> => {
   const res = await fetch(URL+`/${arg._id}/${arg.state}`, {
     method: "PATCH"
+  });
+  const data = res.json();
+  return data;
+};
+
+
+export const deleteATodo = async (arg:TodoInterface): Promise<TodoInterface> => {
+  const res = await fetch(URL+`/${arg._id}`, {
+    method: "DELETE"
   });
   const data = res.json();
   return data;
